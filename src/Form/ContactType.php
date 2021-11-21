@@ -38,9 +38,9 @@ class ContactType extends AbstractType
             ))
             ->add('departement', EntityType::class, array(
                 'label' => false,
+                'placeholder' => 'Département*',
                 'class' => Departement::class,
                 'choice_label' => 'name',
-                'placeholder' => 'Département*',
                 'query_builder' => function (DepartementRepository $d) {
                     return $d->createQueryBuilder('d')
                         ->orderBy('d.name', 'ASC');
