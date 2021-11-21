@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historique de contact | EfficienceIT{% endblock %}
+
+{% block body %}
+    <h1>Historique d'envoi</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Adresse email</th>
+                <th>Département</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacts %}
+            <tr>
+                <td>{{ contact.name }}</td>
+                <td>{{ contact.surname }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.departement.name }}</td>
+                <td>
+                    <a class="link-secondary" href="{{ path('contact_show', {'id': contact.id}) }}">Voir l'email envoyé</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Aucun mail n'a été envoyé pour le moment</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-outline-info" href="{{ path('contact_new') }}">Envoyer un email</a>
+{% endblock %}

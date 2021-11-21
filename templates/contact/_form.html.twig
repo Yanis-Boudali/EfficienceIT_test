@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-6">{{ form_row(form.name, {'attr':{'class':'form-control'}}) }} </div>
+    <div class="col-6">{{ form_row(form.surname, {'attr':{'class':'form-control'}}) }}</div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-6">{{ form_row(form.email, {'attr':{'class':'form-control'}}) }}</div>
+    <div class="col-6">{{ form_row(form.departement, {'attr':{'class':'form-control'}}) }}</div>
+</div>
+
+<div class="row  mt-5">
+    <div class="col-12">{{ form_row(form.message, {'attr':{'class':'form-control'}}) }}</div>
+</div>
+ 
+{{ form_widget(form) }}
+<button class="btn btn-outline-info mt-5 ml-auto">{{ button_label|default('Envoyer') }}</button> 
+{{ form_end(form) }}
