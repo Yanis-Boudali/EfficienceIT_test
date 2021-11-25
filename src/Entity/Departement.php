@@ -32,11 +32,11 @@ class Departement
     /**
      * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="departements")
      */
-    private $contact;
+    private $contacts;
 
     public function __construct()
     {
-        $this->contact = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -69,17 +69,17 @@ class Departement
     }
 
     /**
-     * @return Collection|Contact[]
+     * @return Collection|Contacts[]
      */
     public function getContact(): Collection
     {
-        return $this->contact;
+        return $this->contacts;
     }
 
     public function addContact(Contact $contact): self
     {
-        if (!$this->contact->contains($contact)) {
-            $this->contact[] = $contact;
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
             $contact->setDepartement($this);
         }
 
@@ -88,7 +88,7 @@ class Departement
 
     public function removeContact(Contact $contact): self
     {
-        if ($this->contact->removeElement($contact)) {
+        if ($this->contacts->removeElement($contact)) {
             // set the owning side to null (unless already changed)
             if ($contact->getDepartement() === $this) {
                 $contact->setDepartement(null);

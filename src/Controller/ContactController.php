@@ -38,7 +38,6 @@ class ContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $contact = $form->getData();
 
-            // Préparation envoi de mails
             $expediteur = $contact->getEmail();
             $destinataire = $contact->getDepartement()->getEmail();
             $contentType = 'text/plain';
@@ -46,19 +45,14 @@ class ContactController extends AbstractController
             $subject = 'Contact';
             $body = $contact->getMessage();
 
-            // On crée le message
             $message = (new \Swift_Message(null))
-                // On attribue l'expéditeur
                 ->setFrom($expediteur)
-                // On attribue le destinataire
                 ->setTo($destinataire)
-                // On crée le sujet
                 ->setSubject($subject)
-                // On crée le texte avec la vue
                 ->setBody($body, $contentType, $charset);
             $mailer->send($message);
 
-            $this->addFlash('message', 'Votre message a été transmis à'.$contact->getDepartement()->getEmail().', nous vous répondrons dans les meilleurs délais.'); // Permet un message flash de renvoi
+            $this->addFlash('message', 'Votre message a été transmis à'.$contact->getDepartement()->getEmail().', nous vous répondrons dans les meilleurs délais.');
             
             $entityManager->persist($contact);
             $entityManager->flush();
@@ -81,26 +75,6 @@ class ContactController extends AbstractController
             'contact' => $contact,
         ]);
     }
-
-    /**
-     * @Route("/{id}/edit", name="contact_edit", methods={"GET", "POST"})
-     */
-    // public function edit(Request $request, Contact $contact, EntityManagerInterface $entityManager): Response
-    // {
-    //     $form = $this->createForm(ContactType::class, $contact);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $entityManager->flush();
-
-    //         return $this->redirectToRoute('contact_index', [], Response::HTTP_SEE_OTHER);
-    //     }
-
-    //     return $this->render('contact/edit.html.twig', [
-    //         'contact' => $contact,
-    //         'form' => $form->createView(),
-    //     ]);
-    // }
 
     /**
      * @Route("/{id}", name="contact_delete", methods={"POST"})

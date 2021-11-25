@@ -41,10 +41,6 @@ class ContactType extends AbstractType
                 'placeholder' => 'Département*',
                 'class' => Departement::class,
                 'choice_label' => 'name',
-                'query_builder' => function (DepartementRepository $d) {
-                    return $d->createQueryBuilder('d')
-                        ->orderBy('d.name', 'ASC');
-                },
             ))
             ->add('message', TextareaType::class, array(
                 'label' => false,
